@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>東京ビッグサイトの旅 旅のしおり</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Zen+Maru+Gothic:wght@400;500;700;900&family=DotGothic16&display=swap');
+
+:root{
+  --paper:#FAF5EA;
+  --paper-soft:#F2EBDB;
+  --paper-deep:#EAE0C9;
+  --ink:#21303F;
+  --ink-soft:#5B6B7A;
+  --stamp:#C1433A;
+  --stamp-soft:#F3DEDB;
+  --bay:#2B6F92;
+  --bay-soft:#DCEAF0;
+  --mint:#7FAE9D;
+  --mint-soft:#E4EEE9;
+  --sand:#D9A441;
+  --line:rgba(33,48,63,0.16);
+  --font-display:'Shippori Mincho B1', serif;
+  --font-body:'Zen Maru Gothic', sans-serif;
+  --font-mono:'DotGothic16', monospace;
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--paper);
+  background-image:
+    radial-gradient(var(--paper-deep) 1px, transparent 1px);
+  background-size:18px 18px;
+  color:var(--ink);
+  font-family:var(--font-body);
+  line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+}
+
+.wrap{max-width:640px;margin:0 auto;padding:0 0 60px;}
+
+/* ---------- icon sprite ---------- */
+.icon{width:1em;height:1em;display:inline-block;vertical-align:-0.15em;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
+
+/* ---------- sticky nav ---------- */
+.shiori-nav{
+  position:sticky;top:0;z-index:50;
+  background:rgba(250,245,234,0.94);
+  backdrop-filter:blur(4px);
+  border-bottom:1px solid var(--line);
+  overflow-x:auto;
+  white-space:nowrap;
+  padding:10px 14px;
+  -ms-overflow-style:none;scrollbar-width:none;
+}
+.shiori-nav::-webkit-scrollbar{display:none;}
+.shiori-nav a{
+  font-family:var(--font-body);
+  font-size:13px;font-weight:700;
+  color:var(--ink-soft);
+  text-decoration:none;
+  margin-right:18px;
+  padding-bottom:2px;
+  border-bottom:2px solid transparent;
+}
+.shiori-nav a:hover{color:var(--stamp);border-color:var(--stamp);}
+
+/* ---------- section base ---------- */
+section{padding:46px 22px 8px;}
+.section-head{display:flex;align-items:center;gap:10px;margin-bottom:22px;}
+.section-head .icon-badge{
+  width:40px;height:40px;flex:none;border-radius:50%;
+  background:var(--bay-soft);color:var(--bay);
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;
+}
+.section-head h2{
+  font-family:var(--font-display);
+  font-size:21px;font-weight:700;margin:0;letter-spacing:.02em;
+}
+.section-head .en{
+  display:block;font-family:var(--font-mono);font-size:11px;
+  color:var(--bay);letter-spacing:.12em;margin-bottom:2px;
+}
+.lead{color:var(--ink-soft);font-size:14.5px;margin:-8px 0 24px;}
+
+/* ---------- cover ---------- */
+.cover{
+  position:relative;
+  padding:54px 24px 0;
+  text-align:center;
+  overflow:hidden;
+}
+.cover-eyebrow{
+  font-family:var(--font-mono);
+  letter-spacing:.18em;font-size:12px;color:var(--bay);
+  margin-bottom:14px;
+}
+.cover h1{
+  font-family:var(--font-display);
+  font-size:34px;line-height:1.45;font-weight:800;
+  margin:0 0 10px;
+}
+.cover h1 span{color:var(--stamp);}
+.cover .sub{
+  font-family:var(--font-body);font-weight:500;
+  color:var(--ink-soft);font-size:14.5px;margin-bottom:30px;
+}
+.stamp-circle{
+  position:absolute;top:36px;right:14px;
+  width:84px;height:84px;
+  border:2px solid var(--stamp);border-radius:50%;
+  color:var(--stamp);
+  display:flex;align-items:center;justify-content:center;
+  transform:rotate(-12deg);
+  opacity:.85;
+}
+.stamp-circle::before{
+  content:'';position:absolute;inset:6px;border:1px solid var(--stamp);border-radius:50%;
+}
+.stamp-circle span{
+  font-family:var(--font-display);font-size:15px;font-weight:700;writing-mode:vertical-rl;
+}
+
+/* ticket card */
+.ticket{
+  background:var(--ink);
+  color:var(--paper);
+  border-radius:18px;
+  margin:0 4px 30px;
+  position:relative;
+  text-align:left;
+  box-shadow:0 14px 30px -16px rgba(33,48,63,.55);
+}
+.ticket-top{padding:22px 24px 18px;}
+.ticket-top .route{
+  display:flex;align-items:center;justify-content:space-between;
+  font-family:var(--font-display);font-weight:700;font-size:20px;
+}
+.ticket-top .route .arrow{font-family:var(--font-body);color:var(--sand);font-size:14px;padding:0 10px;}
+.ticket-top .meta{
+  display:flex;gap:18px;margin-top:14px;font-family:var(--font-mono);font-size:12px;color:#cfd6dc;letter-spacing:.05em;
+}
+.ticket-perf{
+  height:14px;
+  background-image:radial-gradient(circle, var(--paper) 4px, transparent 4.3px);
+  background-size:18px 14px;background-repeat:repeat-x;background-position:0 center;
+  background-color:var(--ink);
+}
+.ticket-bottom{
+  padding:18px 24px 22px;
+  display:grid;grid-template-columns:1fr 1fr;gap:14px 10px;
+}
+.ticket-bottom div b{display:block;font-size:10.5px;color:var(--sand);font-weight:700;letter-spacing:.1em;margin-bottom:3px;font-family:var(--font-mono);}
+.ticket-bottom div span{font-size:13.5px;font-weight:500;}
+
+.cover-msg{
+  font-size:13.5px;color:var(--ink-soft);
+  max-width:420px;margin:0 auto 40px;padding:0 6px;
+}
+
+/* ---------- timeline / schedule ---------- */
+.day-card{
+  background:var(--paper-soft);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:20px 18px 22px;
+  margin-bottom:22px;
+}
+.day-card .day-tag{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--ink);color:var(--paper);
+  font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;
+  padding:5px 12px;border-radius:99px;margin-bottom:6px;
+}
+.day-card .day-title{font-family:var(--font-display);font-weight:700;font-size:17.5px;margin:6px 0 16px;}
+.tl{list-style:none;margin:0;padding:0;position:relative;}
+.tl::before{
+  content:'';position:absolute;left:43px;top:6px;bottom:6px;width:1px;
+  background:repeating-linear-gradient(to bottom, var(--line) 0 4px, transparent 4px 8px);
+}
+.tl li{display:flex;gap:14px;padding:10px 0;position:relative;}
+.tl time{
+  flex:none;width:48px;text-align:right;font-family:var(--font-mono);
+  font-size:13px;color:var(--bay);padding-top:1px;
+}
+.tl .dot{
+  flex:none;width:9px;height:9px;border-radius:50%;background:var(--paper);
+  border:2px solid var(--bay);margin-top:5px;z-index:1;
+}
+.tl .txt b{font-weight:700;font-size:14.5px;}
+.tl .txt p{margin:2px 0 0;font-size:12.8px;color:var(--ink-soft);}
+.note-strip{
+  margin-top:16px;font-size:12px;color:var(--ink-soft);
+  background:var(--bay-soft);border-radius:10px;padding:10px 12px;
+}
+
+/* ---------- info cards ---------- */
+.info-card{
+  background:var(--paper-soft);border:1px solid var(--line);border-radius:16px;
+  padding:20px 20px;margin-bottom:16px;
+}
+.info-card h3{font-family:var(--font-display);font-size:16px;margin:0 0 12px;}
+.kv{display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--line);font-size:13.5px;}
+.kv:last-child{border-bottom:none;}
+.kv b{flex:none;width:84px;color:var(--ink-soft);font-weight:700;font-size:12.5px;letter-spacing:.02em;}
+.pill-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;}
+.pill{
+  background:var(--bay-soft);color:var(--bay);font-size:12px;font-weight:700;
+  padding:6px 12px;border-radius:99px;
+}
+.dist-card{
+  display:flex;align-items:center;gap:12px;
+  background:var(--mint-soft);border-radius:12px;padding:12px 14px;margin-top:14px;
+}
+.dist-card .icon{font-size:22px;color:var(--mint);}
+.dist-card div{font-size:12.8px;color:var(--ink-soft);}
+.dist-card b{display:block;color:var(--ink);font-size:14.5px;}
+
+/* ---------- checklist ---------- */
+.check-group{margin-bottom:22px;}
+.check-group h3{
+  font-family:var(--font-display);font-size:15.5px;margin:0 0 10px;
+  display:flex;align-items:center;gap:8px;
+}
+.check-group h3::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--stamp);}
+.check-list{list-style:none;margin:0;padding:0;}
+.check-list li{
+  display:flex;align-items:center;gap:12px;
+  padding:9px 4px;border-bottom:1px solid var(--line);
+}
+.check-list li:last-child{border-bottom:none;}
+.check-list label{font-size:14px;flex:1;cursor:pointer;}
+input.stamp-box{
+  appearance:none;-webkit-appearance:none;
+  width:26px;height:26px;flex:none;border-radius:50%;
+  border:1.6px solid var(--ink-soft);
+  position:relative;cursor:pointer;background:var(--paper);
+}
+input.stamp-box:checked{border-color:var(--stamp);}
+input.stamp-box:checked::after{
+  content:'済';
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-display);font-size:12px;font-weight:700;
+  color:var(--stamp);
+  border:1px solid var(--stamp);border-radius:50%;
+  transform:scale(1.16) rotate(-14deg);
+}
+.check-list li.checked label{color:var(--ink-soft);text-decoration:line-through;text-decoration-color:var(--line);}
+
+/* ---------- map placeholder ---------- */
+.map-slot{
+  border:2px dashed var(--bay);
+  border-radius:16px;
+  background:var(--bay-soft);
+  padding:34px 18px;
+  text-align:center;
+  color:var(--bay);
+  margin-bottom:16px;
+}
+.map-slot .icon-big{font-size:30px;display:block;margin-bottom:10px;}
+.map-slot b{display:block;font-family:var(--font-display);font-size:15px;margin-bottom:4px;color:var(--ink);}
+.map-slot span{font-size:12.5px;color:var(--ink-soft);}
+.memo-lines{margin-top:18px;}
+.memo-lines .row{
+  display:flex;gap:8px;align-items:center;
+  border-bottom:1px dashed var(--line);padding:10px 2px;font-size:13px;color:var(--ink-soft);
+}
+.memo-lines .row b{flex:none;width:54px;color:var(--ink);font-size:12px;font-weight:700;}
+.memo-lines .row .fill{flex:1;border-bottom:1px solid var(--line);height:1px;margin-top:14px;}
+
+/* ---------- tip list ---------- */
+.tip-list{list-style:none;margin:0;padding:0;}
+.tip-list li{
+  display:flex;gap:12px;padding:13px 0;border-bottom:1px solid var(--line);
+}
+.tip-list li:last-child{border-bottom:none;}
+.tip-list .num{
+  flex:none;font-family:var(--font-mono);color:var(--stamp);font-size:13px;font-weight:700;
+  width:22px;
+}
+.tip-list b{display:block;font-size:14px;margin-bottom:2px;}
+.tip-list p{margin:0;font-size:12.6px;color:var(--ink-soft);}
+
+/* manner card */
+.manner-grid{display:grid;grid-template-columns:1fr;gap:10px;}
+.manner{
+  display:flex;gap:12px;background:var(--paper-soft);border:1px solid var(--line);
+  border-radius:12px;padding:13px 14px;font-size:13px;align-items:flex-start;
+}
+.manner .icon{flex:none;color:var(--stamp);font-size:18px;margin-top:1px;}
+
+/* weather */
+.weather-card{
+  background:linear-gradient(135deg,var(--bay) 0%,#1f5772 100%);
+  color:#fff;border-radius:18px;padding:24px 22px;margin-bottom:18px;
+}
+.weather-card .temp-row{display:flex;align-items:baseline;gap:8px;margin-bottom:6px;}
+.weather-card .temp-row .num{font-family:var(--font-display);font-size:38px;font-weight:700;}
+.weather-card .temp-row .unit{font-size:14px;opacity:.85;}
+.weather-card p{margin:0;font-size:12.8px;opacity:.92;}
+.weather-tags{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;}
+.weather-tags span{background:rgba(255,255,255,.18);border-radius:99px;padding:5px 12px;font-size:11.5px;}
+
+/* emergency */
+.sos-card{
+  background:var(--ink);color:var(--paper);border-radius:16px;padding:20px 20px;margin-bottom:16px;
+}
+.sos-card h3{font-family:var(--font-display);font-size:15px;margin:0 0 12px;color:var(--sand);}
+.sos-kv{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px dashed rgba(255,255,255,.18);font-size:13.5px;}
+.sos-kv:last-child{border-bottom:none;}
+.sos-kv b{color:#cfd6dc;font-weight:500;}
+.sos-kv span{font-family:var(--font-mono);}
+
+/* wishlist table */
+.wish-table{width:100%;border-collapse:collapse;font-size:12.8px;margin-bottom:6px;}
+.wish-table th{
+  font-family:var(--font-mono);font-weight:700;color:var(--bay);
+  text-align:left;border-bottom:2px solid var(--ink);padding:8px 6px;font-size:11px;letter-spacing:.04em;
+}
+.wish-table td{border-bottom:1px solid var(--line);padding:13px 6px;color:var(--ink-soft);}
+
+/* footer */
+.shiori-footer{
+  text-align:center;padding:50px 24px 10px;color:var(--ink-soft);font-size:12px;
+}
+.shiori-footer .icon-badge{
+  width:46px;height:46px;border-radius:50%;background:var(--stamp-soft);color:var(--stamp);
+  display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:22px;
+}
+
+/* divider deco */
+.divider{display:flex;align-items:center;gap:10px;padding:0 22px;margin:6px 0;color:var(--line);}
+.divider::before,.divider::after{content:'';flex:1;border-top:1px dashed var(--line);}
+.divider .icon{color:var(--sand);font-size:14px;}
+
+@media (min-width:680px){
+  .cover h1{font-size:40px;}
+  .ticket-bottom{grid-template-columns:1fr 1fr 1fr;}
+}
+</style>
+</head>
+<body>
+
+<svg style="display:none">
+  <symbol id="i-ticket" viewBox="0 0 32 32"><rect x="4" y="8" width="24" height="16" rx="3"/><line x1="16" y1="8" x2="16" y2="24" stroke-dasharray="2 3"/></symbol>
+  <symbol id="i-suitcase" viewBox="0 0 32 32"><rect x="5" y="11" width="22" height="16" rx="2.5"/><path d="M12 11V8a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v3"/><rect x="14" y="16" width="4" height="3" rx="1"/></symbol>
+  <symbol id="i-hotel" viewBox="0 0 32 32"><rect x="7" y="6" width="18" height="22" rx="1.5"/><rect x="11" y="10" width="3" height="3"/><rect x="18" y="10" width="3" height="3"/><rect x="11" y="16" width="3" height="3"/><rect x="18" y="16" width="3" height="3"/><rect x="13.5" y="22" width="5" height="6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 32 32"><rect x="8" y="5" width="16" height="24" rx="2"/><rect x="12" y="3" width="8" height="4" rx="1"/><path d="M11 16l3 3 7-7"/></symbol>
+  <symbol id="i-onigiri" viewBox="0 0 32 32"><path d="M16 5 28 26H4Z"/><path d="M7 21h18"/><circle cx="13" cy="11" r=".6" fill="currentColor" stroke="none"/><circle cx="18" cy="13" r=".6" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-bag" viewBox="0 0 32 32"><rect x="6" y="12" width="20" height="16" rx="2"/><path d="M11 12V9a5 5 0 0 1 10 0v3"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 32 32"><rect x="3" y="6" width="17" height="12" rx="4"/><path d="M8 18l-2 4 5-4"/><rect x="13" y="15" width="16" height="11" rx="4"/><path d="M18 26l2 4-5-4"/></symbol>
+  <symbol id="i-fan" viewBox="0 0 32 32"><circle cx="16" cy="13" r="9"/><path d="M16 4v18M9 8l14 10M23 8 9 18"/><rect x="14.5" y="22" width="3" height="9" rx="1.4"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 32 32"><rect x="10" y="4" width="12" height="24" rx="3"/><line x1="14" y1="8" x2="18" y2="8"/><circle cx="16" cy="25" r="1" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-book" viewBox="0 0 32 32"><path d="M6 7c4-2 8-2 10 0v18c-2-2-6-2-10 0Z"/><path d="M26 7c-4-2-8-2-10 0v18c2-2 6-2 10 0Z"/></symbol>
+  <symbol id="i-train" viewBox="0 0 32 32"><rect x="5" y="9" width="22" height="14" rx="6"/><rect x="9" y="13" width="4" height="4" rx="1"/><rect x="16" y="13" width="4" height="4" rx="1"/><circle cx="10" cy="25" r="2"/><circle cx="22" cy="25" r="2"/></symbol>
+  <symbol id="i-warn" viewBox="0 0 32 32"><path d="M16 5 29 26H3Z"/><line x1="16" y1="13" x2="16" y2="19"/><circle cx="16" cy="22.5" r="1" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-leaf" viewBox="0 0 32 32"><path d="M6 26C6 14 16 6 26 6 26 18 16 26 6 26Z"/><path d="M8 24 22 8"/></symbol>
+</svg>
+
+<nav class="shiori-nav">
+  <a href="#cover">🎫表紙</a>
+  <a href="#schedule">🕒スケジュール</a>
+  <a href="#hotel">🏨宿・アクセス</a>
+  <a href="#checklist">🎒持ち物</a>
+  <a href="#food-map">🍙ごはん</a>
+  <a href="#shop-map">🖨️同人グッズ</a>
+  <a href="#tips">🤝旅のコツ</a>
+  <a href="#weather">☂️天気</a>
+  <a href="#emergency">📞もしもの時</a>
+</nav>
+
+<div class="wrap">
+
+  <!-- ================= COVER ================= -->
+  <section id="cover" class="cover">
+    <div class="stamp-circle"><span>2026.7</span></div>
+    <div class="cover-eyebrow">OSAKA → TOKYO BIG SIGHT</div>
+    <h1>東京ビッグサイト<br>同人誌即売会の<span>旅</span>のしおり</h1>
+    <p class="sub">大阪から東京ベイエリアへ、1泊2日の遠征記録</p>
+
+    <div class="ticket">
+      <div class="ticket-top">
+        <div class="route">大阪 <span class="arrow">✈ ー ー ー ➤</span> 東京ビッグサイト</div>
+        <div class="meta">
+          <span>DATE 2026.07.04 SAT - 07.05 SUN</span>
+        </div>
+      </div>
+      <div class="ticket-perf"></div>
+      <div class="ticket-bottom">
+        <div><b>DESTINATION</b><span>東京ビッグサイト（同人誌即売会）</span></div>
+        <div><b>STAY</b><span>相鉄グランドフレッサ<br>東京ベイ有明</span></div>
+        <div><b>DURATION</b><span>1泊2日</span></div>
+        <div><b>MEMBER</b><span>2名（はじめまして同士）</span></div>
+      </div>
+    </div>
+
+    <p class="cover-msg">はじめまして、が、いつのまにか「一緒に戦った戦友」になりますように。<br>このしおりが、楽しい思い出づくりの相棒になれますように☺️</p>
+  </section>
+
+  <div class="divider"><svg class="icon"><use href="#i-leaf"/></svg></div>
+
+  <!-- ================= SCHEDULE ================= -->
+  <section id="schedule">
+    <div class="section-head">
+      <div class="icon-badge"><svg class="icon"><use href="#i-train"/></svg></div>
+      <div><span class="en">SCHEDULE</span><h2>タイムスケジュール</h2></div>
+    </div>
+    <p class="lead">参加するイベントの開場・閉場時間に合わせて、時刻はふたりで調整してね。あくまで目安のたたき台です。</p>
+
+    <div class="day-card">
+      <span class="day-tag">DAY 1 ・ 7/4（土）</span>
+      <div class="day-title">到着＆顔合わせの日</div>
+      <ul class="tl">
+        <li><time>—</time><span class="dot"></span><div class="txt"><b>大阪を出発</b><p>新幹線 or 飛行機、各自お好きな手段で東京へ</p></div></li>
+        <li><time>15:00</time><span class="dot"></span><div class="txt"><b>ホテル到着・荷物predeposit</b><p>チェックインが15:00以降の場合はフロントで荷物だけ預けて身軽に</p></div></li>
+        <li><time>17:00</time><span class="dot"></span><div class="txt"><b>有明エリアで顔合わせごはん</b><p>初日の夕食は自己紹介タイムも兼ねて。お店は下の「ごはんマップ」参照</p></div></li>
+        <li><time>19:00</time><span class="dot"></span><div class="txt"><b>チェックイン・お部屋でゆっくり</b><p>戦利品リスト・サークルチェックを最終確認</p></div></li>
+        <li><time>23:00</time><span class="dot"></span><div class="txt"><b>就寝</b><p>翌日は朝が早いので、無理せず早めに</p></div></li>
+      </ul>
+      <div class="note-strip">💡 早めに着いたら、荷物だけ預けて有明ガーデンを下見しておくと翌朝の動きがスムーズ。</div>
+    </div>
+
+    <div class="day-card">
+      <span class="day-tag">DAY 2 ・ 7/5（日）</span>
+      <div class="day-title">即売会、本番の日</div>
+      <ul class="tl">
+        <li><time>6:30</time><span class="dot"></span><div class="txt"><b>起床・身支度</b><p>動きやすい服装＆履き慣れた靴で</p></div></li>
+        <li><time>7:00</time><span class="dot"></span><div class="txt"><b>朝ごはん</b><p>コンビニ or ホテル近くでさっと済ませる</p></div></li>
+        <li><time>7:30</time><span class="dot"></span><div class="txt"><b>ホテル出発</b><p>サブバッグ・現金・モバイルバッテリーの忘れ物チェック！</p></div></li>
+        <li><time>8:00</time><span class="dot"></span><div class="txt"><b>開場待ち列へ</b><p>※実際の開場時間に合わせて調整</p></div></li>
+        <li><time>10:00</time><span class="dot"></span><div class="txt"><b>即売会スタート</b><p>優先サークルから回る作戦で</p></div></li>
+        <li><time>12:30</time><span class="dot"></span><div class="txt"><b>休憩・ランチ</b><p>会場外に出て一旦水分・糖分補給</p></div></li>
+        <li><time>16:00</time><span class="dot"></span><div class="txt"><b>終了・ホテルへ戻る</b><p>戦利品を一緒に開封する「供養タイム」</p></div></li>
+        <li><time>18:00</time><span class="dot"></span><div class="txt"><b>打ち上げ夕食</b><p>お互いの戦果を称え合おう</p></div></li>
+        <li><time>21:00</time><span class="dot"></span><div class="txt"><b>翌日の帰路準備・就寝</b><p>チェックアウト時間を確認しておく</p></div></li>
+      </ul>
+      <div class="note-strip">💡 列に並んでいる間にお互いの「絶対買う」リストを見せ合うと、はぐれても安心して別行動できます。</div>
+    </div>
+  </section>
+
+  <div class="divider"><svg class="icon"><use href="#i-leaf"/></svg></div>
+
+  <!-- ================= HOTEL / ACCESS ================= -->
+  <section id="hotel">
+    <div class="section-head">
+      <div class="icon-badge"><svg class="icon"><use href="#i-hotel"/></svg></div>
+      <div><span class="en">STAY & ACCESS</span><h2>宿泊先とアクセス</h2></div>
+    </div>
+
+    <div class="info-card">
+      <h3>相鉄グランドフレッサ 東京ベイ有明</h3>
+      <div class="kv"><b>住所</b><span>東京都江東区有明3-6-6</span></div>
+      <div class="kv"><b>電話</b><span>03-6899-2030</span></div>
+      <div class="kv"><b>チェックイン</b><span>15:00〜（要予約内容確認）</span></div>
+      <div class="kv"><b>チェックアウト</b><span>〜11:00（要予約内容確認）</span></div>
+      <div class="dist-card">
+        <svg class="icon icon-big" style="font-size:22px"><use href="#i-suitcase"/></svg>
+        <div>東京ビッグサイトまで<b>徒歩約10分（約700m）</b></div>
+      </div>
+      <div class="pill-row">
+        <span class="pill">りんかい線「国際展示場駅」徒歩約4分</span>
+        <span class="pill">ゆりかもめ「東京ビッグサイト駅」</span>
+        <span class="pill">有明ガーデン 徒歩約9分</span>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <h3>大阪からのアクセス（参考）</h3>
+      <div class="kv"><b>新幹線</b><span>新大阪駅→東京駅 約2時間30分、東京駅からりんかい線直通で国際展示場駅まで約20分</span></div>
+      <div class="kv"><b>飛行機</b><span>伊丹/関西空港→羽田空港 約1時間、空港からモノレール・京急＋りんかい線で約40〜50分</span></div>
+      <div class="note-strip">✈️ どちらも事前予約がおすすめ。イベント当日朝は新幹線・飛行機が混みやすいので、前日入りがゆとりを持てます。</div>
+    </div>
+  </section>
+
+  <div class="divider"><svg class="icon"><use href="#i-leaf"/></svg></div>
+
+  <!-- ================= CHECKLIST ================= -->
+  <section id="checklist">
+    <div class="section-head">
+      <div class="icon-badge"><svg class="icon"><use href="#i-check"/></svg></div>
+      <div><span class="en">PACKING LIST</span><h2>持ち物チェックリスト</h2></div>
+    </div>
+    <p class="lead">タップすると「済」のはんこが押せます。出発前に二人で読み合わせしてね。</p>
+
+    <div class="check-group">
+      <h3>基本・書類</h3>
+      <ul class="check-list">
+        <li><input type="checkbox" class="stamp-box" id="c1"><label for="c1">身分証明書</label></li>
+        <li><input type="checkbox" class="stamp-box" id="c2"><label for="c2">交通系ICカード（モバイルSuica等）</label></li>
+        <li><input type="checkbox" class="stamp-box" id="c3"><label for="c3">現金（小銭多め・千円札を多めに）</label></li>
+        <li><input type="checkbox" class="stamp-box" id="c4"><label for="c4">宿泊予約の確認画面・QR</label></li>
+        <li><input type="checkbox" class="stamp-box" id="c5"><label for="c5">健康保険証 or コピー</label></li>
+      </ul>
+    </div>
+
+    <div class="check-group">
+      <h3>即売会まわりグッズ</h3>
+      <ul class="check-list">
+        <li><input type="checkbox" class="stamp-box" id="c6"><label for="c6">大きめのサブバッグ・エコバッグ（2〜3枚）</label></li>
+        <li><input type="checkbox" class="stamp-box" id="c7"><label for="c7">戦利品リスト／チェック済みカタログ</label></li>
+        <li><input type="checkbox" class="stamp-box" id="c8"><label for="c8">モバイルバッテリー＆ケーブル</label></li>
+        <li><input type="checkbox" class="stamp-box" id="c9"><label for="c9">本を雨・型崩れから守る大きめクリアファイル</label></li>
+        <li><input type="checkbox" class="stamp-box" id="c10"><label for="c10">本を濡らさないビニール袋（数枚）</label></li>
+        <li><input type="checkbox" class="stamp-box" id="c11"><label for="c11">名刺・連絡先カード（あれば）</label></li>
+      </ul>
+    </div>
+
+    <div class="check-group">
+      <h3>夏の快適グッズ</h3>
+      <ul class="check-list">
+        <li><input type="checkbox" class="stamp-box" id="c12"><label for="c12">折りたたみ傘 or 携帯レインコート</label></li>
+        <li><input type="checkbox" class="stamp-box" id="c13"><label for="c13">日焼け止め・帽子</label></li>
+        <li><input type="checkbox" class="stamp-box" id="c14"><label for="c14">携帯扇風機・うちわ</label></li>
+        <li><input type="checkbox" class="stamp-box" id="c15"><label for="c15">塩分タブレット・経口補水液</label></li>
+        <li><input type="checkbox" class="stamp-box" id="c16"><label for="c16">汗拭きシート・タオル</label></li>
+        <li><input type="checkbox" class="stamp-box" id="c17"><label for="c17">履き慣れた靴（新品は避ける）</label></li>
+      </ul>
+    </div>
+
+    <div class="check-group">
+      <h3>身の回り・その他</h3>
+      <ul class="check-list">
+        <li><input type="checkbox" class="stamp-box" id="c18"><label for="c18">充電器一式（スマホ・カメラ等）</label></li>
+        <li><input type="checkbox" class="stamp-box" id="c19"><label for="c19">着替え（汗対策に多め）</label></li>
+        <li><input type="checkbox" class="stamp-box" id="c20"><label for="c20">パジャマ・部屋着</label></li>
+        <li><input type="checkbox" class="stamp-box" id="c21"><label for="c21">常備薬・絆創膏</label></li>
+        <li><input type="checkbox" class="stamp-box" id="c22"><label for="c22">スキンケア・コスメポーチ</label></li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="divider"><svg class="icon"><use href="#i-leaf"/></svg></div>
+
+  <!-- ================= FOOD MAP (placeholder) ================= -->
+  <section id="food-map">
+    <div class="section-head">
+      <div class="icon-badge"><svg class="icon"><use href="#i-onigiri"/></svg></div>
+      <div><span class="en">FOOD MAP</span><h2>ホテル周辺ごはんマップ</h2></div>
+    </div>
+    <p class="lead">ふたりで見つけたお店の地図・スクショをここに貼り付けてね。</p>
+
+    <!-- ★ここに画像を挿入：下の map-slot を <img src="ファイル名.jpg" style="width:100%;border-radius:16px;"> に置き換えてください -->
+    <div class="map-slot">
+      <span class="icon-big">📍</span>
+      <b>ごはんマップをここに貼り付け</b>
+      <span>地図アプリのスクリーンショット or 画像ファイルを挿入</span>
+    </div>
+
+    <div class="memo-lines">
+      <div class="row"><b>お店①</b><div class="fill"></div></div>
+      <div class="row"><b>お店②</b><div class="fill"></div></div>
+      <div class="row"><b>お店③</b><div class="fill"></div></div>
+    </div>
+  </section>
+
+  <div class="divider"><svg class="icon"><use href="#i-leaf"/></svg></div>
+
+  <!-- ================= SHOP MAP (placeholder) ================= -->
+  <section id="shop-map">
+    <div class="section-head">
+      <div class="icon-badge"><svg class="icon"><use href="#i-bag"/></svg></div>
+      <div><span class="en">SUPPLY MAP</span><h2>同人誌制作お役立ちマップ</h2></div>
+    </div>
+    <p class="lead">100円ショップ・コンビニのネットプリント・ポスター印刷所など、「あ、忘れた！」を救うお店をまとめてね。</p>
+
+    <!-- ★ここに画像を挿入：下の map-slot を <img src="ファイル名.jpg" style="width:100%;border-radius:16px;"> に置き換えてください -->
+    <div class="map-slot">
+      <span class="icon-big">🖨️</span>
+      <b>お役立ちショップマップをここに貼り付け</b>
+      <span>地図アプリのスクリーンショット or 画像ファイルを挿入</span>
+    </div>
+
+    <div class="memo-lines">
+      <div class="row"><b>100均</b><div class="fill"></div></div>
+      <div class="row"><b>印刷</b><div class="fill"></div></div>
+      <div class="row"><b>コンビニ</b><div class="fill"></div></div>
+    </div>
+  </section>
+
+  <div class="divider"><svg class="icon"><use href="#i-leaf"/></svg></div>
+
+  <!-- ================= TIPS (first-meeting companion) ================= -->
+  <section id="tips">
+    <div class="section-head">
+      <div class="icon-badge"><svg class="icon"><use href="#i-chat"/></svg></div>
+      <div><span class="en">TRAVEL TIPS</span><h2>はじめましてさんとの旅のコツ</h2></div>
+    </div>
+    <p class="lead">気心が知れてなくても大丈夫。先に決めておくだけで、当日ぐっと気楽になります。</p>
+
+    <ul class="tip-list">
+      <li><span class="num">01</span><div><b>待ち合わせは「時間・場所・目印」までセットで</b><p>「◯時に◯◯改札の前」など、具体的に決めておくと安心</p></div></li>
+      <li><span class="num">02</span><div><b>連絡先・現在地共有を事前に交換</b><p>LINEの位置情報共有などがあると、会場で迷子になっても合流しやすい</p></div></li>
+      <li><span class="num">03</span><div><b>はぐれた時の集合場所を決めておく</b><p>例：ホテルのロビー、特定の時間にここに来る、など</p></div></li>
+      <li><span class="num">04</span><div><b>お会計は割り勘アプリでスマートに</b><p>PayPayやLINE Payの送金機能を使うと細かいやり取りが楽</p></div></li>
+      <li><span class="num">05</span><div><b>「ひとり時間OK」をあらかじめ確認しておく</b><p>無理に合わせすぎず、お互いのペースを尊重できると気疲れしにくい</p></div></li>
+      <li><span class="num">06</span><div><b>写真・SNS投稿は一言確認してから</b><p>相手の写り方や公開範囲の好みは人それぞれ</p></div></li>
+    </ul>
+  </section>
+
+  <div class="divider"><svg class="icon"><use href="#i-leaf"/></svg></div>
+
+  <!-- ================= EVENT MANNER ================= -->
+  <section id="manner">
+    <div class="section-head">
+      <div class="icon-badge"><svg class="icon"><use href="#i-warn"/></svg></div>
+      <div><span class="en">EVENT DAY</span><h2>即売会当日の心得</h2></div>
+    </div>
+    <div class="manner-grid">
+      <div class="manner"><svg class="icon"><use href="#i-onigiri"/></svg><div>現金は多めに。電子マネー非対応のサークルも多いです</div></div>
+      <div class="manner"><svg class="icon"><use href="#i-suitcase"/></svg><div>大きなキャリーバッグは会場内NGなことが多いので、コインロッカーを活用</div></div>
+      <div class="manner"><svg class="icon"><use href="#i-warn"/></svg><div>列ではスタッフの指示に従い、走らない・割り込まない</div></div>
+      <div class="manner"><svg class="icon"><use href="#i-chat"/></svg><div>サークルの撮影は必ず許可をもらってから</div></div>
+      <div class="manner"><svg class="icon"><use href="#i-fan"/></svg><div>こまめな水分補給と休憩を。夏場は特に熱中症に注意</div></div>
+      <div class="manner"><svg class="icon"><use href="#i-bag"/></svg><div>戦利品はサブバッグにすぐ移して、すっきり身軽に</div></div>
+    </div>
+  </section>
+
+  <div class="divider"><svg class="icon"><use href="#i-leaf"/></svg></div>
+
+  <!-- ================= WEATHER ================= -->
+  <section id="weather">
+    <div class="section-head">
+      <div class="icon-badge"><svg class="icon"><use href="#i-fan"/></svg></div>
+      <div><span class="en">WEATHER NOTE</span><h2>天気・服装メモ</h2></div>
+    </div>
+    <div class="weather-card">
+      <div class="temp-row"><span class="num">28-31</span><span class="unit">℃前後（平年値）</span></div>
+      <p>7月上旬の東京は梅雨明け前後で蒸し暑く、湿度も高め。急な雨に降られることもある時期です。出発が近づいたら最新の天気予報も確認してね。</p>
+      <div class="weather-tags">
+        <span>通気性の良い服</span>
+        <span>折りたたみ傘 必須</span>
+        <span>こまめな水分補給</span>
+        <span>日焼け対策</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"><svg class="icon"><use href="#i-leaf"/></svg></div>
+
+  <!-- ================= EMERGENCY ================= -->
+  <section id="emergency">
+    <div class="section-head">
+      <div class="icon-badge"><svg class="icon"><use href="#i-phone"/></svg></div>
+      <div><span class="en">JUST IN CASE</span><h2>緊急連絡・もしもの時</h2></div>
+    </div>
+    <div class="sos-card">
+      <h3>困った時の連絡先</h3>
+      <div class="sos-kv"><b>警察</b><span>110</span></div>
+      <div class="sos-kv"><b>救急・消防</b><span>119</span></div>
+      <div class="sos-kv"><b>宿泊先 電話</b><span>03-6899-2030</span></div>
+      <div class="sos-kv"><b>宿泊先 住所</b><span>江東区有明3-6-6</span></div>
+    </div>
+    <div class="info-card">
+      <h3>お互いの緊急連絡先メモ</h3>
+      <div class="kv"><b>自分の家族</b><span>＿＿＿＿＿＿＿＿＿＿</span></div>
+      <div class="kv"><b>相手の緊急連絡先</b><span>＿＿＿＿＿＿＿＿＿＿</span></div>
+      <div class="note-strip">📱 出発前にお互いの緊急連絡先（ご家族など）をひとことだけ共有しておくと、もしもの時も安心です。</div>
+    </div>
+  </section>
+
+  <div class="divider"><svg class="icon"><use href="#i-leaf"/></svg></div>
+
+  <!-- ================= WISHLIST (bonus) ================= -->
+  <section id="wishlist">
+    <div class="section-head">
+      <div class="icon-badge"><svg class="icon"><use href="#i-book"/></svg></div>
+      <div><span class="en">BONUS</span><h2>戦利品メモ</h2></div>
+    </div>
+    <p class="lead">事前にチェックしたサークルをメモしておくと、当日の動きが迷子になりません。</p>
+    <table class="wish-table">
+      <tr><th>サークル名</th><th>配置</th><th>優先度</th></tr>
+      <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+      <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+      <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+      <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+      <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+    </table>
+  </section>
+
+  <footer class="shiori-footer">
+    <div class="icon-badge"><svg class="icon"><use href="#i-ticket"/></svg></div>
+    良い旅になりますように。<br>いってらっしゃい！
+  </footer>
+
+</div>
+
+<script>
+document.querySelectorAll('.stamp-box').forEach(function(box){
+  box.addEventListener('change', function(){
+    this.closest('li').classList.toggle('checked', this.checked);
+  });
+});
+</script>
+
+</body>
+</html>
