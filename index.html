@@ -322,7 +322,43 @@ input.stamp-box:checked::after{
   font-family:var(--font-mono);font-weight:700;color:var(--bay);
   text-align:left;border-bottom:2px solid var(--ink);padding:8px 6px;font-size:11px;letter-spacing:.04em;
 }
-.wish-table td{border-bottom:1px solid var(--line);padding:13px 6px;color:var(--ink-soft);}
+.wish-table td{border-bottom:1px solid var(--line);padding:9px 4px;color:var(--ink-soft);}
+.wish-table input{
+  width:100%;border:none;background:transparent;font-family:var(--font-body);font-size:12.8px;
+  color:var(--ink);padding:6px 6px;outline:none;border-radius:6px;
+}
+.wish-table input:focus{background:var(--bay-soft);}
+.wish-table td.del-cell{width:26px;text-align:center;}
+.add-row-btn{
+  display:block;width:100%;margin-top:10px;padding:11px;border:2px dashed var(--bay);border-radius:12px;
+  background:var(--bay-soft);color:var(--bay);font-family:var(--font-body);font-weight:700;font-size:13px;cursor:pointer;
+}
+.add-row-btn:active{transform:scale(.99);}
+
+/* ---------- editable list controls ---------- */
+.check-list li{justify-content:space-between;}
+.row-del{
+  flex:none;width:24px;height:24px;border-radius:50%;border:none;background:transparent;
+  color:var(--ink-soft);font-size:15px;line-height:1;cursor:pointer;opacity:.45;
+}
+.row-del:hover{opacity:1;color:var(--stamp);}
+
+.add-row{display:flex;gap:8px;margin-top:10px;}
+.add-row input{
+  flex:1;min-width:0;border:1px dashed var(--bay);border-radius:10px;background:var(--bay-soft);
+  padding:9px 12px;font-family:var(--font-body);font-size:13px;color:var(--ink);outline:none;
+}
+.add-row input::placeholder{color:var(--bay);opacity:.7;}
+.add-row button{
+  flex:none;border:none;border-radius:10px;background:var(--bay);color:#fff;
+  font-family:var(--font-body);font-weight:700;font-size:12.5px;padding:0 16px;cursor:pointer;
+}
+.add-row button:active{transform:scale(.97);}
+
+.reset-btn{
+  display:block;margin:20px auto 4px;background:none;border:none;color:var(--ink-soft);
+  font-size:11.5px;text-decoration:underline;cursor:pointer;font-family:var(--font-body);padding:6px;
+}
 
 /* footer */
 .shiori-footer{
@@ -483,55 +519,49 @@ input.stamp-box:checked::after{
   <section id="checklist">
     <div class="section-head">
       <div class="icon-badge"><svg class="icon"><use href="#i-check"/></svg></div>
-      <div><span class="en">PACKING LIST</span><h2>持ち物チェックリスト</h2></div>
+      <div><span class="en">PACKING LIST ・ EDITABLE</span><h2>持ち物チェックリスト</h2></div>
     </div>
-    <p class="lead">タップすると「済」のはんこが押せます。出発前に二人で読み合わせしてね。</p>
+    <p class="lead">タップすると「済」のはんこが押せます。下の「＋追加」で自由に持ち物を増やせます（編集はこの画面を開いている間だけ反映されます）。</p>
 
-    <div class="check-group">
-      <h3>基本・書類</h3>
-      <ul class="check-list">
-        <li><input type="checkbox" class="stamp-box" id="c1"><label for="c1">身分証明書</label></li>
-        <li><input type="checkbox" class="stamp-box" id="c2"><label for="c2">交通系ICカード（モバイルSuica等）</label></li>
-        <li><input type="checkbox" class="stamp-box" id="c3"><label for="c3">現金（小銭多め・千円札を多めに）</label></li>
-        <li><input type="checkbox" class="stamp-box" id="c4"><label for="c4">宿泊予約の確認画面・QR</label></li>
-        <li><input type="checkbox" class="stamp-box" id="c5"><label for="c5">健康保険証 or コピー</label></li>
-      </ul>
+    <div id="checklist-groups">
+      <div class="check-group">
+        <h3>基本・書類</h3>
+        <ul class="check-list" id="list-basic"></ul>
+        <div class="add-row" data-cat="basic">
+          <input type="text" placeholder="持ち物を追加…" maxlength="40">
+          <button type="button">＋追加</button>
+        </div>
+      </div>
+
+      <div class="check-group">
+        <h3>即売会まわりグッズ</h3>
+        <ul class="check-list" id="list-event"></ul>
+        <div class="add-row" data-cat="event">
+          <input type="text" placeholder="持ち物を追加…" maxlength="40">
+          <button type="button">＋追加</button>
+        </div>
+      </div>
+
+      <div class="check-group">
+        <h3>夏の快適グッズ</h3>
+        <ul class="check-list" id="list-summer"></ul>
+        <div class="add-row" data-cat="summer">
+          <input type="text" placeholder="持ち物を追加…" maxlength="40">
+          <button type="button">＋追加</button>
+        </div>
+      </div>
+
+      <div class="check-group">
+        <h3>身の回り・その他</h3>
+        <ul class="check-list" id="list-misc"></ul>
+        <div class="add-row" data-cat="misc">
+          <input type="text" placeholder="持ち物を追加…" maxlength="40">
+          <button type="button">＋追加</button>
+        </div>
+      </div>
     </div>
 
-    <div class="check-group">
-      <h3>即売会まわりグッズ</h3>
-      <ul class="check-list">
-        <li><input type="checkbox" class="stamp-box" id="c6"><label for="c6">大きめのサブバッグ・エコバッグ（2〜3枚）</label></li>
-        <li><input type="checkbox" class="stamp-box" id="c7"><label for="c7">戦利品リスト／チェック済みカタログ</label></li>
-        <li><input type="checkbox" class="stamp-box" id="c8"><label for="c8">モバイルバッテリー＆ケーブル</label></li>
-        <li><input type="checkbox" class="stamp-box" id="c9"><label for="c9">本を雨・型崩れから守る大きめクリアファイル</label></li>
-        <li><input type="checkbox" class="stamp-box" id="c10"><label for="c10">本を濡らさないビニール袋（数枚）</label></li>
-        <li><input type="checkbox" class="stamp-box" id="c11"><label for="c11">名刺・連絡先カード（あれば）</label></li>
-      </ul>
-    </div>
-
-    <div class="check-group">
-      <h3>夏の快適グッズ</h3>
-      <ul class="check-list">
-        <li><input type="checkbox" class="stamp-box" id="c12"><label for="c12">折りたたみ傘 or 携帯レインコート</label></li>
-        <li><input type="checkbox" class="stamp-box" id="c13"><label for="c13">日焼け止め・帽子</label></li>
-        <li><input type="checkbox" class="stamp-box" id="c14"><label for="c14">携帯扇風機・うちわ</label></li>
-        <li><input type="checkbox" class="stamp-box" id="c15"><label for="c15">塩分タブレット・経口補水液</label></li>
-        <li><input type="checkbox" class="stamp-box" id="c16"><label for="c16">汗拭きシート・タオル</label></li>
-        <li><input type="checkbox" class="stamp-box" id="c17"><label for="c17">履き慣れた靴（新品は避ける）</label></li>
-      </ul>
-    </div>
-
-    <div class="check-group">
-      <h3>身の回り・その他</h3>
-      <ul class="check-list">
-        <li><input type="checkbox" class="stamp-box" id="c18"><label for="c18">充電器一式（スマホ・カメラ等）</label></li>
-        <li><input type="checkbox" class="stamp-box" id="c19"><label for="c19">着替え（汗対策に多め）</label></li>
-        <li><input type="checkbox" class="stamp-box" id="c20"><label for="c20">パジャマ・部屋着</label></li>
-        <li><input type="checkbox" class="stamp-box" id="c21"><label for="c21">常備薬・絆創膏</label></li>
-        <li><input type="checkbox" class="stamp-box" id="c22"><label for="c22">スキンケア・コスメポーチ</label></li>
-      </ul>
-    </div>
+    <button id="reset-checklist" class="reset-btn" type="button">🗑 持ち物リストを初期状態に戻す</button>
   </section>
 
   <div class="divider"><svg class="icon"><use href="#i-leaf"/></svg></div>
@@ -669,17 +699,17 @@ input.stamp-box:checked::after{
   <section id="wishlist">
     <div class="section-head">
       <div class="icon-badge"><svg class="icon"><use href="#i-book"/></svg></div>
-      <div><span class="en">BONUS</span><h2>戦利品メモ</h2></div>
+      <div><span class="en">BONUS ・ EDITABLE</span><h2>戦利品メモ</h2></div>
     </div>
-    <p class="lead">事前にチェックしたサークルをメモしておくと、当日の動きが迷子になりません。</p>
+    <p class="lead">事前にチェックしたサークルをメモしておくと、当日の動きが迷子になりません。下の「＋行を追加」で自由に書き込めます。</p>
+
     <table class="wish-table">
-      <tr><th>サークル名</th><th>配置</th><th>優先度</th></tr>
-      <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-      <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-      <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-      <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-      <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+      <thead>
+        <tr><th>サークル名</th><th>配置</th><th>優先度</th><th></th></tr>
+      </thead>
+      <tbody id="wish-body"></tbody>
     </table>
+    <button id="add-wish-row" class="add-row-btn" type="button">＋ 行を追加</button>
   </section>
 
   <footer class="shiori-footer">
@@ -690,11 +720,142 @@ input.stamp-box:checked::after{
 </div>
 
 <script>
-document.querySelectorAll('.stamp-box').forEach(function(box){
-  box.addEventListener('change', function(){
-    this.closest('li').classList.toggle('checked', this.checked);
+(function(){
+  "use strict";
+
+  function makeId(){ return 'i' + Date.now().toString(36) + Math.random().toString(36).slice(2,7); }
+
+  /* ---------------- packing checklist ---------------- */
+  var DEFAULT_CHECKLIST = {
+    basic: ["身分証明書","交通系ICカード(モバイルSuica等)","現金(小銭多め・千円札を多めに)","宿泊予約の確認画面・QR","健康保険証 or コピー"],
+    event: ["大きめのサブバッグ・エコバッグ(2〜3枚)","戦利品リスト/チェック済みカタログ","モバイルバッテリー&ケーブル","本を雨・型崩れから守る大きめクリアファイル","本を濡らさないビニール袋(数枚)","名刺・連絡先カード(あれば)"],
+    summer: ["折りたたみ傘 or 携帯レインコート","日焼け止め・帽子","携帯扇風機・うちわ","塩分タブレット・経口補水液","汗拭きシート・タオル","履き慣れた靴(新品は避ける)"],
+    misc: ["充電器一式(スマホ・カメラ等)","着替え(汗対策に多め)","パジャマ・部屋着","常備薬・絆創膏","スキンケア・コスメポーチ"]
+  };
+  var CAT_IDS = {basic:'list-basic', event:'list-event', summer:'list-summer', misc:'list-misc'};
+
+  function seedChecklist(){
+    var data = {};
+    Object.keys(DEFAULT_CHECKLIST).forEach(function(cat){
+      data[cat] = DEFAULT_CHECKLIST[cat].map(function(t){ return {id:makeId(), text:t}; });
+    });
+    return data;
+  }
+
+  var checklistData = seedChecklist();
+  var checkedSet = new Set();
+
+  function renderChecklist(){
+    Object.keys(CAT_IDS).forEach(function(cat){
+      var ul = document.getElementById(CAT_IDS[cat]);
+      if(!ul) return;
+      ul.innerHTML = '';
+      (checklistData[cat] || []).forEach(function(item){
+        var li = document.createElement('li');
+        if(checkedSet.has(item.id)) li.classList.add('checked');
+
+        var cb = document.createElement('input');
+        cb.type = 'checkbox'; cb.className = 'stamp-box'; cb.id = item.id;
+        cb.checked = checkedSet.has(item.id);
+        cb.addEventListener('change', function(){
+          if(cb.checked) checkedSet.add(item.id); else checkedSet.delete(item.id);
+          li.classList.toggle('checked', cb.checked);
+        });
+
+        var label = document.createElement('label');
+        label.htmlFor = item.id; label.textContent = item.text;
+
+        var del = document.createElement('button');
+        del.type = 'button'; del.className = 'row-del'; del.textContent = '×';
+        del.setAttribute('aria-label','この持ち物を削除');
+        del.addEventListener('click', function(){
+          checklistData[cat] = checklistData[cat].filter(function(it){ return it.id !== item.id; });
+          checkedSet.delete(item.id);
+          renderChecklist();
+        });
+
+        li.appendChild(cb); li.appendChild(label); li.appendChild(del);
+        ul.appendChild(li);
+      });
+    });
+  }
+
+  document.querySelectorAll('.add-row').forEach(function(row){
+    var cat = row.getAttribute('data-cat');
+    var input = row.querySelector('input');
+    var btn = row.querySelector('button');
+    function doAdd(){
+      var text = input.value.trim();
+      if(!text) return;
+      if(!checklistData[cat]) checklistData[cat] = [];
+      checklistData[cat].push({id:makeId(), text:text});
+      input.value = '';
+      renderChecklist();
+    }
+    btn.addEventListener('click', doAdd);
+    input.addEventListener('keydown', function(e){ if(e.key === 'Enter'){ e.preventDefault(); doAdd(); } });
   });
-});
+
+  var resetBtn = document.getElementById('reset-checklist');
+  if(resetBtn){
+    resetBtn.addEventListener('click', function(){
+      if(!window.confirm('持ち物リストを初期状態に戻します。追加した項目は消えますが、よろしいですか？')) return;
+      checklistData = seedChecklist();
+      checkedSet.clear();
+      renderChecklist();
+    });
+  }
+
+  renderChecklist();
+
+  /* ---------------- wishlist (戦利品メモ) ---------------- */
+  function seedWish(){
+    return [0,1,2].map(function(){ return {id:makeId(), circle:'', booth:'', priority:''}; });
+  }
+
+  var wishData = seedWish();
+
+  function renderWish(){
+    var tbody = document.getElementById('wish-body');
+    if(!tbody) return;
+    tbody.innerHTML = '';
+    wishData.forEach(function(row){
+      var tr = document.createElement('tr');
+      [['circle','サークル名'],['booth','配置'],['priority','優先度']].forEach(function(pair){
+        var field = pair[0], ph = pair[1];
+        var td = document.createElement('td');
+        var inp = document.createElement('input');
+        inp.type = 'text'; inp.value = row[field] || ''; inp.placeholder = ph;
+        inp.addEventListener('change', function(){ row[field] = inp.value; });
+        td.appendChild(inp);
+        tr.appendChild(td);
+      });
+      var delTd = document.createElement('td');
+      delTd.className = 'del-cell';
+      var delBtn = document.createElement('button');
+      delBtn.type = 'button'; delBtn.className = 'row-del'; delBtn.textContent = '×';
+      delBtn.setAttribute('aria-label','この行を削除');
+      delBtn.addEventListener('click', function(){
+        wishData = wishData.filter(function(r){ return r.id !== row.id; });
+        renderWish();
+      });
+      delTd.appendChild(delBtn);
+      tr.appendChild(delTd);
+      tbody.appendChild(tr);
+    });
+  }
+
+  var addWishBtn = document.getElementById('add-wish-row');
+  if(addWishBtn){
+    addWishBtn.addEventListener('click', function(){
+      wishData.push({id:makeId(), circle:'', booth:'', priority:''});
+      renderWish();
+    });
+  }
+
+  renderWish();
+
+})();
 </script>
 
 </body>
