@@ -521,7 +521,8 @@ input.stamp-box:checked::after{
       <div class="icon-badge"><svg class="icon"><use href="#i-check"/></svg></div>
       <div><span class="en">PACKING LIST ・ EDITABLE</span><h2>持ち物チェックリスト</h2></div>
     </div>
-    <p class="lead">タップすると「済」のはんこが押せます。下の「＋追加」で自由に持ち物を増やせます（編集はこの画面を開いている間だけ反映されます）。</p>
+    <p class="lead">タップすると「済」のはんこが押せます。下の「＋追加」で自由に持ち物を増やせます。内容はこのブラウザに自動保存され、閉じても消えません。</p>
+    <p class="lead" id="checklist-persist-note" hidden>⚠️ この画面では自動保存が使えないようです。お手数ですが、HTMLファイルをダウンロードしてブラウザで直接開くと保存が有効になります。</p>
 
     <div id="checklist-groups">
       <div class="check-group">
@@ -701,7 +702,8 @@ input.stamp-box:checked::after{
       <div class="icon-badge"><svg class="icon"><use href="#i-book"/></svg></div>
       <div><span class="en">BONUS ・ EDITABLE</span><h2>戦利品メモ</h2></div>
     </div>
-    <p class="lead">事前にチェックしたサークルをメモしておくと、当日の動きが迷子になりません。下の「＋行を追加」で自由に書き込めます。</p>
+    <p class="lead">事前にチェックしたサークルをメモしておくと、当日の動きが迷子になりません。下の「＋行を追加」で自由に書き込めます。内容はこのブラウザに自動保存されます。</p>
+    <p class="lead" id="wish-persist-note" hidden>⚠️ この画面では自動保存が使えないようです。お手数ですが、HTMLファイルをダウンロードしてブラウザで直接開くと保存が有効になります。</p>
 
     <table class="wish-table">
       <thead>
@@ -725,7 +727,36 @@ input.stamp-box:checked::after{
 
   function makeId(){ return 'i' + Date.now().toString(36) + Math.random().toString(36).slice(2,7); }
 
+  /* ---------------- local persistence (per-device, this browser only) ---------------- */
+  var LOCAL_AVAILABLE = false;
+  try{
+    var __t = '__shiori_test__';
+    window.localStorage.setItem(__t, '1');
+    window.localStorage.removeItem(__t);
+    LOCAL_AVAILABLE = true;
+  }catch(e){ LOCAL_AVAILABLE = false; }
+
+  function localGet(key){
+    if(!LOCAL_AVAILABLE) return null;
+    try{
+      var raw = window.localStorage.getItem(key);
+      return raw ? JSON.parse(raw) : null;
+    }catch(e){ return null; }
+  }
+  function localSet(key, value){
+    if(!LOCAL_AVAILABLE) return;
+    try{ window.localStorage.setItem(key, JSON.stringify(value)); }catch(e){ /* ignore */ }
+  }
+
+  if(!LOCAL_AVAILABLE){
+    var note1 = document.getElementById('checklist-persist-note');
+    var note2 = document.getElementById('wish-persist-note');
+    if(note1) note1.hidden = false;
+    if(note2) note2.hidden = false;
+  }
+
   /* ---------------- packing checklist ---------------- */
+  var CHECK_KEY = 'shiori-bigsight-checklist-v1';
   var DEFAULT_CHECKLIST = {
     basic: ["身分証明書","交通系ICカード(モバイルSuica等)","現金(小銭多め・千円札を多めに)","宿泊予約の確認画面・QR","健康保険証 or コピー"],
     event: ["大きめのサブバッグ・エコバッグ(2〜3枚)","戦利品リスト/チェック済みカタログ","モバイルバッテリー&ケーブル","本を雨・型崩れから守る大きめクリアファイル","本を濡らさないビニール袋(数枚)","名刺・連絡先カード(あれば)"],
@@ -737,13 +768,14 @@ input.stamp-box:checked::after{
   function seedChecklist(){
     var data = {};
     Object.keys(DEFAULT_CHECKLIST).forEach(function(cat){
-      data[cat] = DEFAULT_CHECKLIST[cat].map(function(t){ return {id:makeId(), text:t}; });
+      data[cat] = DEFAULT_CHECKLIST[cat].map(function(t){ return {id:makeId(), text:t, checked:false}; });
     });
     return data;
   }
 
-  var checklistData = seedChecklist();
-  var checkedSet = new Set();
+  var checklistData = localGet(CHECK_KEY) || seedChecklist();
+
+  function saveChecklist(){ localSet(CHECK_KEY, checklistData); }
 
   function renderChecklist(){
     Object.keys(CAT_IDS).forEach(function(cat){
@@ -752,14 +784,15 @@ input.stamp-box:checked::after{
       ul.innerHTML = '';
       (checklistData[cat] || []).forEach(function(item){
         var li = document.createElement('li');
-        if(checkedSet.has(item.id)) li.classList.add('checked');
+        if(item.checked) li.classList.add('checked');
 
         var cb = document.createElement('input');
         cb.type = 'checkbox'; cb.className = 'stamp-box'; cb.id = item.id;
-        cb.checked = checkedSet.has(item.id);
+        cb.checked = !!item.checked;
         cb.addEventListener('change', function(){
-          if(cb.checked) checkedSet.add(item.id); else checkedSet.delete(item.id);
+          item.checked = cb.checked;
           li.classList.toggle('checked', cb.checked);
+          saveChecklist();
         });
 
         var label = document.createElement('label');
@@ -770,7 +803,7 @@ input.stamp-box:checked::after{
         del.setAttribute('aria-label','この持ち物を削除');
         del.addEventListener('click', function(){
           checklistData[cat] = checklistData[cat].filter(function(it){ return it.id !== item.id; });
-          checkedSet.delete(item.id);
+          saveChecklist();
           renderChecklist();
         });
 
@@ -788,8 +821,9 @@ input.stamp-box:checked::after{
       var text = input.value.trim();
       if(!text) return;
       if(!checklistData[cat]) checklistData[cat] = [];
-      checklistData[cat].push({id:makeId(), text:text});
+      checklistData[cat].push({id:makeId(), text:text, checked:false});
       input.value = '';
+      saveChecklist();
       renderChecklist();
     }
     btn.addEventListener('click', doAdd);
@@ -799,9 +833,9 @@ input.stamp-box:checked::after{
   var resetBtn = document.getElementById('reset-checklist');
   if(resetBtn){
     resetBtn.addEventListener('click', function(){
-      if(!window.confirm('持ち物リストを初期状態に戻します。追加した項目は消えますが、よろしいですか？')) return;
+      if(!window.confirm('持ち物リストを初期状態に戻します。追加・チェックした内容は消えますが、よろしいですか？')) return;
       checklistData = seedChecklist();
-      checkedSet.clear();
+      saveChecklist();
       renderChecklist();
     });
   }
@@ -809,11 +843,15 @@ input.stamp-box:checked::after{
   renderChecklist();
 
   /* ---------------- wishlist (戦利品メモ) ---------------- */
+  var WISH_KEY = 'shiori-bigsight-wishlist-v1';
+
   function seedWish(){
     return [0,1,2].map(function(){ return {id:makeId(), circle:'', booth:'', priority:''}; });
   }
 
-  var wishData = seedWish();
+  var wishData = localGet(WISH_KEY) || seedWish();
+
+  function saveWish(){ localSet(WISH_KEY, wishData); }
 
   function renderWish(){
     var tbody = document.getElementById('wish-body');
@@ -826,7 +864,7 @@ input.stamp-box:checked::after{
         var td = document.createElement('td');
         var inp = document.createElement('input');
         inp.type = 'text'; inp.value = row[field] || ''; inp.placeholder = ph;
-        inp.addEventListener('change', function(){ row[field] = inp.value; });
+        inp.addEventListener('change', function(){ row[field] = inp.value; saveWish(); });
         td.appendChild(inp);
         tr.appendChild(td);
       });
@@ -837,6 +875,7 @@ input.stamp-box:checked::after{
       delBtn.setAttribute('aria-label','この行を削除');
       delBtn.addEventListener('click', function(){
         wishData = wishData.filter(function(r){ return r.id !== row.id; });
+        saveWish();
         renderWish();
       });
       delTd.appendChild(delBtn);
@@ -849,6 +888,7 @@ input.stamp-box:checked::after{
   if(addWishBtn){
     addWishBtn.addEventListener('click', function(){
       wishData.push({id:makeId(), circle:'', booth:'', priority:''});
+      saveWish();
       renderWish();
     });
   }
