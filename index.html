@@ -403,6 +403,7 @@ input.stamp-box:checked::after{
   <a href="#schedule">🕒スケジュール</a>
   <a href="#hotel">🏨宿・アクセス</a>
   <a href="#checklist">🎒持ち物</a>
+  <a href="#venue-map">🗺️会場図面</a>
   <a href="#food-map">🍙ごはん</a>
   <a href="#shop-map">🖨️同人グッズ</a>
   <a href="#tips">🤝旅のコツ</a>
@@ -573,6 +574,47 @@ input.stamp-box:checked::after{
     </div>
 
     <button id="reset-checklist" class="reset-btn" type="button">🗑 持ち物リストを初期状態に戻す</button>
+  </section>
+
+  <div class="divider"><svg class="icon"><use href="#i-leaf"/></svg></div>
+
+  <!-- ================= VENUE MAP ================= -->
+  <section id="venue-map">
+    <div class="section-head">
+      <div class="icon-badge" style="background:var(--stamp-soft);color:var(--stamp);">🗺️</div>
+      <div><span class="en">VENUE MAP</span><h2>サークル会場図面</h2></div>
+    </div>
+    <p class="lead">自分たちのスペース位置を事前に確認しておこう。当日迷子にならないために！</p>
+
+    <!-- 図面①：自スペース周り -->
+    <p style="font-family:var(--font-display);font-size:14px;font-weight:700;margin:0 0 8px;color:var(--stamp);">① 自スペース周り</p>
+    <!-- ★ここに画像を挿入：下の map-slot を <img src="ファイル名.jpg" style="width:100%;border-radius:16px;"> に置き換えてください -->
+    <div class="map-slot" style="border-color:var(--stamp);background:var(--stamp-soft);color:var(--stamp);">
+      <span class="icon-big">📌</span>
+      <b>自スペース周りの図面をここに貼り付け</b>
+      <span>主催から配布された配置図 or スクリーンショットを挿入</span>
+    </div>
+
+    <div class="memo-lines" style="margin-bottom:28px;">
+      <div class="row"><b>自スペース</b><div class="fill"></div></div>
+      <div class="row"><b>入場口</b><div class="fill"></div></div>
+      <div class="row"><b>荷物置き場</b><div class="fill"></div></div>
+    </div>
+
+    <!-- 図面②：ホール全体図 -->
+    <p style="font-family:var(--font-display);font-size:14px;font-weight:700;margin:0 0 8px;color:var(--stamp);">② ホール全体図</p>
+    <!-- ★ここに画像を挿入：下の map-slot を <img src="ファイル名.jpg" style="width:100%;border-radius:16px;"> に置き換えてください -->
+    <div class="map-slot" style="border-color:var(--stamp);background:var(--stamp-soft);color:var(--stamp);">
+      <span class="icon-big">🗺️</span>
+      <b>ホール全体図をここに貼り付け</b>
+      <span>主催から配布された全体配置図 or スクリーンショットを挿入</span>
+    </div>
+
+    <div class="memo-lines">
+      <div class="row"><b>トイレ</b><div class="fill"></div></div>
+      <div class="row"><b>休憩スペース</b><div class="fill"></div></div>
+      <div class="row"><b>メモ</b><div class="fill"></div></div>
+    </div>
   </section>
 
   <div class="divider"><svg class="icon"><use href="#i-leaf"/></svg></div>
